@@ -1,4 +1,5 @@
-# Antimatter Dimensions
+# Matter Dimensions
+This is a port of the game Matter Dimensions by Semenar to run on the Antimatter Dimensions framework.
 
 ## Run
 
