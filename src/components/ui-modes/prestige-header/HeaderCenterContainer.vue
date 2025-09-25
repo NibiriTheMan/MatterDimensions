@@ -23,8 +23,8 @@ export default {
       isModern: false,
       hasRealityButton: false,
       isDoomed: false,
-      antimatter: new Decimal(0),
-      antimatterPerSec: new Decimal(0),
+      matter: new Decimal(0),
+      matterPerSec: new Decimal(0),
     };
   },
   methods: {
@@ -34,9 +34,9 @@ export default {
 
       this.isModern = player.options.newUI;
       this.isDoomed = Pelle.isDoomed;
-      this.antimatter.copyFrom(Currency.antimatter);
+      this.matter.copyFrom(Currency.antimatter);
       this.hasRealityButton = PlayerProgress.realityUnlocked() || TimeStudy.reality.isBought;
-      if (!this.hasRealityButton) this.antimatterPerSec.copyFrom(Currency.antimatter.productionPerSecond);
+      if (!this.hasRealityButton) this.matterPerSec.copyFrom(Currency.antimatter.productionPerSecond);
     },
   },
 };
@@ -47,7 +47,7 @@ export default {
     v-if="shouldDisplay"
     class="c-prestige-button-container"
   >
-    <span>You have <span class="c-game-header__antimatter">{{ format(antimatter, 2, 1) }}</span> antimatter.</span>
+    <span>You have <span class="c-game-header__antimatter">{{ format(matter, 2, 1) }}</span> matter.</span>
     <div
       v-if="hasRealityButton"
       class="c-reality-container"
@@ -60,7 +60,7 @@ export default {
       <RealityButton v-else />
     </div>
     <div v-else>
-      You are getting {{ format(antimatterPerSec, 2) }} antimatter per second.
+      You are getting {{ format(matterPerSec, 2) }} matter per second.
       <br>
       <HeaderTickspeedInfo />
     </div>
