@@ -25,6 +25,7 @@ export default {
       isDoomed: false,
       matter: new Decimal(0),
       matterPerSec: new Decimal(0),
+      antimatter: new Decimal(0)
     };
   },
   methods: {
@@ -34,9 +35,10 @@ export default {
 
       this.isModern = player.options.newUI;
       this.isDoomed = Pelle.isDoomed;
-      this.matter.copyFrom(Currency.antimatter);
+      this.matter.copyFrom(Currency.matter);
+      this.antimatter.copyFrom(Currency.antimatter)
       this.hasRealityButton = PlayerProgress.realityUnlocked() || TimeStudy.reality.isBought;
-      if (!this.hasRealityButton) this.matterPerSec.copyFrom(Currency.antimatter.productionPerSecond);
+      if (!this.hasRealityButton) this.matterPerSec.copyFrom(Currency.matter.productionPerSecond);
     },
   },
 };
@@ -61,6 +63,8 @@ export default {
     </div>
     <div v-else>
       You are getting {{ format(matterPerSec, 2) }} matter per second.
+      <br>
+      There is {{ format(antimatter, 2) }} antimatter.
       <br>
       <HeaderTickspeedInfo />
     </div>

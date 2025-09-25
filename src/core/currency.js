@@ -196,8 +196,8 @@ class DecimalCurrency extends Currency {
 }
 window.DecimalCurrency = DecimalCurrency;
 
-Currency.antimatter = new class extends DecimalCurrency {
-  get value() { return player.antimatter; }
+Currency.matter = new class extends DecimalCurrency {
+  get value() { return player.matter; }
 
   set value(value) {
     if (InfinityChallenges.nextIC) InfinityChallenges.notifyICUnlock(value);
@@ -207,7 +207,7 @@ Currency.antimatter = new class extends DecimalCurrency {
       TabNotification.newAutobuyer.clearTrigger();
       TabNotification.newAutobuyer.tryTrigger();
     }
-    player.antimatter = value;
+    player.matter = value;
     player.records.thisInfinity.maxAM = player.records.thisInfinity.maxAM.max(value);
     player.records.thisEternity.maxAM = player.records.thisEternity.maxAM.max(value);
     player.records.thisReality.maxAM = player.records.thisReality.maxAM.max(value);
@@ -245,7 +245,7 @@ Currency.antimatter = new class extends DecimalCurrency {
   }
 }();
 
-Currency.matter = new class extends DecimalCurrency {
+Currency.antimatter = new class extends DecimalCurrency {
   get value() { return player.matter; }
   set value(value) {
     player.matter = Decimal.min(value, Decimal.MAX_VALUE);
