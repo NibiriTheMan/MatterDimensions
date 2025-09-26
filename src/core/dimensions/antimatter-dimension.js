@@ -96,7 +96,7 @@ function applyNDMultipliers(mult, tier) {
     buy10Value = Math.floor(AntimatterDimension(tier).bought / 10);
   }
 
-  multiplier = multiplier.dividedBy(100**(tier-1));
+  multiplier = multiplier.dividedBy(Decimal.pow(100,tier-1));
   multiplier = multiplier.times(Decimal.pow(AntimatterDimensions.buyTenMultiplier, buy10Value));
   multiplier = multiplier.times(DimBoost.multiplierToNDTier(tier));
 
