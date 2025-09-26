@@ -95,7 +95,7 @@ function applyNDMultipliers(mult, tier) {
   } else {
     buy10Value = Math.floor(AntimatterDimension(tier).bought / 10);
   }
-  
+
   multiplier = multiplier.dividedBy(100**(tier-1));
   multiplier = multiplier.times(Decimal.pow(AntimatterDimensions.buyTenMultiplier, buy10Value));
   multiplier = multiplier.times(DimBoost.multiplierToNDTier(tier));
@@ -598,7 +598,6 @@ class AntimatterDimensionState extends DimensionState {
       }
     }
     production = production.min(this.cappedProductionInNormalChallenges);
-    console.log(production,this.tier);
     return production;
   }
 }
