@@ -135,8 +135,6 @@ function applyNDMultipliers(mult, tier) {
     multiplier = multiplier.times(1 + tier / 100);
   }
 
-  multiplier = multiplier.clampMin(1);
-
   return multiplier;
 }
 
