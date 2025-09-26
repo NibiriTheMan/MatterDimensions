@@ -85,7 +85,7 @@ export const normalAchievements = [
     id: 24,
     name: "Antimatter Apocalypse",
     get description() { return `Get over ${format(DC.E80)} antimatter.`; },
-    checkRequirement: () => Currency.antimatter.exponent >= 80,
+    checkRequirement: () => Currency.matter.exponent >= 80,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
@@ -221,7 +221,7 @@ export const normalAchievements = [
     },
     checkRequirement: () =>
       Currency.antimatter.exponent >= 63 &&
-      Currency.antimatter.productionPerSecond.gt(Currency.antimatter.value),
+      Currency.matter.productionPerSecond.gt(Currency.matter.value),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
@@ -251,7 +251,7 @@ export const normalAchievements = [
       for ${formatInt(30)} consecutive seconds.`;
     },
     checkRequirement: () => AchievementTimers.marathon1
-      .check(Currency.antimatter.productionPerSecond.gt(Currency.antimatter.value), 30),
+      .check(Currency.matter.productionPerSecond.gt(Currency.matter.value), 30),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
   },
   {
