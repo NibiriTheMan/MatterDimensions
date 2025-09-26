@@ -44,9 +44,8 @@ export default {
 
 <template>
   <div>
-    <br></br>
     {{ matterDivide }}
-    <br></br>
+    <br>
     {{ perUpgrade }}
     <br>
     {{ tickspeedDisplay }}
