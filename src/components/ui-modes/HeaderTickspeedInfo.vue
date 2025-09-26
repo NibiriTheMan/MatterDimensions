@@ -33,7 +33,7 @@ export default {
     update() {
       this.mult.copyFrom(Tickspeed.multiplier);
       this.tickspeed.copyFrom(Tickspeed.perSecond);
-      this.divider.copyFrom(this.matter.add(1).pow(0.5));
+      this.divider.copyFrom(player.matter.add(1).pow(0.5));
       this.galaxyCount = player.galaxies;
       this.purchasedTickspeed = player.totalTickBought;
       this.freeTickspeed = FreeTickspeed.amount;
