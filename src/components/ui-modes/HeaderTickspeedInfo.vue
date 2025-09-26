@@ -26,13 +26,14 @@ export default {
       return `ADs produce ${formatX(this.mult.reciprocal(), 2, 3)} faster per Tickspeed upgrade`;
     },
     matterDivide() {
-      return `All production is divided by ${format(divider,2,1)} (based on current matter)`;
+      return `All production is divided by ${format(this.divider,2,1)} (based on current matter)`;
     }
   },
   methods: {
     update() {
       this.mult.copyFrom(Tickspeed.multiplier);
       this.tickspeed.copyFrom(Tickspeed.perSecond);
+      this.divider.copyFrom(this.matter.add(1).pow(0.5));
       this.galaxyCount = player.galaxies;
       this.purchasedTickspeed = player.totalTickBought;
       this.freeTickspeed = FreeTickspeed.amount;
@@ -44,7 +45,7 @@ export default {
 <template>
   <div>
     {{ matterDivide }}
-    <br>
+    <br></br>
     {{ perUpgrade }}
     <br>
     {{ tickspeedDisplay }}
