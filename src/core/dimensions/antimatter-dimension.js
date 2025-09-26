@@ -61,10 +61,10 @@ export function getDimensionFinalMultiplierUncached(tier) {
   }
 
   let multiplier = DC.D1;
-
+  multiplier = multiplier.dividedBy(100**(tier-1))
+  
   multiplier = applyNDMultipliers(multiplier, tier);
   multiplier = applyNDPowers(multiplier, tier);
-  multiplier = multiplier.dividedBy(100**(tier-1))
 
   const glyphDilationPowMultiplier = getAdjustedGlyphEffect("dilationpow");
   if (player.dilation.active || PelleStrikes.dilation.hasStrike) {
