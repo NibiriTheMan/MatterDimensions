@@ -61,7 +61,6 @@ export function getDimensionFinalMultiplierUncached(tier) {
   }
 
   let multiplier = DC.D1;
-  multiplier = multiplier.dividedBy(100**(tier-1));
 
   multiplier = applyNDMultipliers(multiplier, tier);
   multiplier = applyNDPowers(multiplier, tier);
@@ -90,14 +89,14 @@ export function getDimensionFinalMultiplierUncached(tier) {
 
 function applyNDMultipliers(mult, tier) {
   let multiplier = mult.times(GameCache.antimatterDimensionCommonMultiplier.value);
-
   let buy10Value;
   if (Laitela.continuumActive) {
     buy10Value = AntimatterDimension(tier).continuumValue;
   } else {
     buy10Value = Math.floor(AntimatterDimension(tier).bought / 10);
   }
-
+  
+  multiplier = multiplier.dividedBy(100**(tier-1));
   multiplier = multiplier.times(Decimal.pow(AntimatterDimensions.buyTenMultiplier, buy10Value));
   multiplier = multiplier.times(DimBoost.multiplierToNDTier(tier));
 
