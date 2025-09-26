@@ -4,8 +4,8 @@ import { MultiplierTabIcons } from "./icons";
 export const AM = {
   total: {
     name: "Antimatter Production",
-    displayOverride: () => `${format(Currency.antimatter.productionPerSecond, 2, 2)}/sec`,
-    multValue: () => new Decimal(Currency.antimatter.productionPerSecond).clampMin(1),
+    displayOverride: () => `${format(Currency.matter.productionPerSecond, 2, 2)}/sec`,
+    multValue: () => new Decimal(Currency.matter.productionPerSecond).clampMin(1),
     isActive: true,
     overlay: ["<i class='fas fa-atom' />"],
   },
