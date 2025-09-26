@@ -25,7 +25,8 @@ export default {
       isDoomed: false,
       matter: new Decimal(0),
       matterPerSec: new Decimal(0),
-      antimatter: new Decimal(0)
+      antimatter: new Decimal(0),
+      divider: new Decimal(0)
     };
   },
   methods: {
