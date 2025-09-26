@@ -25,8 +25,7 @@ export default {
       isDoomed: false,
       matter: new Decimal(0),
       matterPerSec: new Decimal(0),
-      antimatter: new Decimal(0),
-      divider: new Decimal(0)
+      antimatter: new Decimal(0)
     };
   },
   methods: {
@@ -66,10 +65,7 @@ export default {
     <div v-else>
       You are getting {{ format(matterPerSec, 2) }} matter per second.
       <br/>
-      There is {{ format(antimatter, 2) }} antimatter.
-      <br/>
-      <br/>
-      All production is divided by {{ format(divider,2)}} (based on current matter)
+      There is {{ format(antimatter, 2, 1) }} antimatter.
       <HeaderTickspeedInfo />
     </div>
   </div>

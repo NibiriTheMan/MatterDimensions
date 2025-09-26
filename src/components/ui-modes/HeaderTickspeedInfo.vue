@@ -10,6 +10,7 @@ export default {
     return {
       mult: new Decimal(0),
       tickspeed: new Decimal(0),
+      divider: new Decimal(0),
       galaxyCount: 0,
       purchasedTickspeed: 0,
       freeTickspeed: 0,
@@ -24,6 +25,9 @@ export default {
         ${formatX(1.05 + this.galaxyCount * 0.005, 3, 3)} to all ADs`;
       return `ADs produce ${formatX(this.mult.reciprocal(), 2, 3)} faster per Tickspeed upgrade`;
     },
+    matterDivide() {
+      return `All production is divided by ${format(divider,2,1)} (based on current matter)`;
+    }
   },
   methods: {
     update() {
@@ -39,6 +43,7 @@ export default {
 
 <template>
   <div>
+    {{ matterDivide }}
     <br>
     {{ perUpgrade }}
     <br>
