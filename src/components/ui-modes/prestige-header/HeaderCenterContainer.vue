@@ -36,7 +36,8 @@ export default {
       this.isModern = player.options.newUI;
       this.isDoomed = Pelle.isDoomed;
       this.matter.copyFrom(Currency.matter);
-      this.antimatter.copyFrom(Currency.antimatter)
+      this.antimatter.copyFrom(Currency.antimatter);
+      this.divider.copyFrom(this.matter.add(1).pow(0.5))
       this.hasRealityButton = PlayerProgress.realityUnlocked() || TimeStudy.reality.isBought;
       if (!this.hasRealityButton) this.matterPerSec.copyFrom(Currency.matter.productionPerSecond);
     },
@@ -67,7 +68,7 @@ export default {
       There is {{ format(antimatter, 2) }} antimatter.
       <br/>
       <br/>
-      All production is divided by {{ matter.add(1.0).pow(0.5).floor()}} (based on current matter)
+      All production is divided by {{ format(divider,2)}} (based on current matter)
       <HeaderTickspeedInfo />
     </div>
   </div>
