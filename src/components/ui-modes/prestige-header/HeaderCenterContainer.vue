@@ -62,11 +62,10 @@ export default {
       <RealityButton v-else />
     </div>
     <div v-else>
-      <br>
       You are getting {{ format(matterPerSec, 2) }} matter per second.
       <br>
       There is {{ format(antimatter, 2, 1) }} antimatter.
-      <br>
+      <br></br>
       <HeaderTickspeedInfo />
     </div>
   </div>
