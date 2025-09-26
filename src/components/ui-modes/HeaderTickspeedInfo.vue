@@ -44,6 +44,7 @@ export default {
 
 <template>
   <div>
+    <br></br>
     {{ matterDivide }}
     <br></br>
     {{ perUpgrade }}
