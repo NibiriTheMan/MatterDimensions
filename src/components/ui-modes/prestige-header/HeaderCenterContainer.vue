@@ -66,6 +66,8 @@ export default {
       <br>
       There is {{ format(antimatter, 2) }} antimatter.
       <br>
+      <br>
+      All production is divided by {{ matter.pow(0.5)}} (based on current matter)
       <HeaderTickspeedInfo />
     </div>
   </div>
