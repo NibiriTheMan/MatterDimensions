@@ -46,7 +46,6 @@ export function antimatterDimensionCommonMultiplier() {
   multiplier = multiplier.dividedByEffectOf(InfinityChallenge(6));
   multiplier = multiplier.times(getAdjustedGlyphEffect("powermult"));
   multiplier = multiplier.times(Currency.realityMachines.value.powEffectOf(AlchemyResource.force));
-
   if (Pelle.isDoomed) multiplier = multiplier.dividedBy(10);
 
   return multiplier;
@@ -65,6 +64,7 @@ export function getDimensionFinalMultiplierUncached(tier) {
 
   multiplier = applyNDMultipliers(multiplier, tier);
   multiplier = applyNDPowers(multiplier, tier);
+  multiplier = multiplier.dividedBy(100**(tier-1))
 
   const glyphDilationPowMultiplier = getAdjustedGlyphEffect("dilationpow");
   if (player.dilation.active || PelleStrikes.dilation.hasStrike) {
@@ -456,7 +456,7 @@ class AntimatterDimensionState extends DimensionState {
   get currencyAmount() {
     return this.tier >= 3 && NormalChallenge(6).isRunning
       ? AntimatterDimension(this.tier - 2).amount
-      : Currency.antimatter.value;
+      : Currency.matter.value;
   }
 
   /**
@@ -464,7 +464,7 @@ class AntimatterDimensionState extends DimensionState {
    */
   set currencyAmount(value) {
     if (this.tier >= 3 && NormalChallenge(6).isRunning) AntimatterDimension(this.tier - 2).amount = value;
-    else Currency.antimatter.value = value;
+    else Currency.matter.value = value;
   }
 
   /**
@@ -652,7 +652,7 @@ export const AntimatterDimensions = {
     // Stop producing antimatter at Big Crunch goal because all the game elements
     // are hidden when pre-break Big Crunch button is on screen.
     const hasBigCrunchGoal = !player.break || Player.isInAntimatterChallenge;
-    if (hasBigCrunchGoal && Currency.antimatter.gte(Player.infinityGoal)) return;
+    if (hasBigCrunchGoal && Currency.matter.gte(Player.infinityGoal)) return;
 
     let maxTierProduced = EternityChallenge(3).isRunning ? 3 : 7;
     let nextTierOffset = 1;
@@ -666,11 +666,11 @@ export const AntimatterDimensions = {
     if (AntimatterDimension(1).amount.gt(0)) {
       player.requirementChecks.eternity.noAD1 = false;
     }
-    AntimatterDimension(1).produceCurrency(Currency.antimatter, diff);
+    AntimatterDimension(1).produceCurrency(Currency.matter, diff);
     if (NormalChallenge(12).isRunning) {
-      AntimatterDimension(2).produceCurrency(Currency.antimatter, diff);
+      AntimatterDimension(2).produceCurrency(Currency.matter, diff);
     }
     // Production may overshoot the goal on the final tick of the challenge
-    if (hasBigCrunchGoal) Currency.antimatter.dropTo(Player.infinityGoal);
+    if (hasBigCrunchGoal) Currency.matter.dropTo(Player.infinityGoal);
   }
 };
