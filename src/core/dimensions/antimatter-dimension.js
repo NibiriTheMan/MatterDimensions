@@ -170,7 +170,6 @@ function applyNDPowers(mult, tier) {
     multiplier = multiplier.pow(0.5);
   }
 
-
   return multiplier;
 }
 
