@@ -63,11 +63,11 @@ export default {
     </div>
     <div v-else>
       You are getting {{ format(matterPerSec, 2) }} matter per second.
-      <br>
+      <br/>
       There is {{ format(antimatter, 2) }} antimatter.
-      <br>
-      <br>
-      All production is divided by {{ matter.pow(0.5)}} (based on current matter)
+      <br/>
+      <br/>
+      All production is divided by {{ matter.pow(0.5).floor()}} (based on current matter)
       <HeaderTickspeedInfo />
     </div>
   </div>
