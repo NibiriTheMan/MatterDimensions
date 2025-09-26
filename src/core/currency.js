@@ -219,7 +219,7 @@ Currency.matter = new class extends DecimalCurrency {
 
   add(amount) {
     super.add(amount);
-    if (amount.gt(0)) {
+    if (amount.gt != null && amount.gt(0)) {
       player.records.totalAntimatter = player.records.totalAntimatter.add(amount);
       player.requirementChecks.reality.noAM = false;
     }
