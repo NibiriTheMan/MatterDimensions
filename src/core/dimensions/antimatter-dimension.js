@@ -62,7 +62,6 @@ export function getDimensionFinalMultiplierUncached(tier) {
 
   let multiplier = DC.D1;
   multiplier = multiplier.dividedBy(100**(tier-1));
-  console.log(multiplier,tier);
 
   multiplier = applyNDMultipliers(multiplier, tier);
   multiplier = applyNDPowers(multiplier, tier);
@@ -85,7 +84,8 @@ export function getDimensionFinalMultiplierUncached(tier) {
   if (AlchemyResource.inflation.isUnlocked && multiplier.gte(AlchemyResource.inflation.effectValue)) {
     multiplier = multiplier.pow(1.05);
   }
-
+  
+  console.log(multiplier,tier);
   return multiplier;
 }
 
