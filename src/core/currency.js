@@ -246,9 +246,9 @@ Currency.matter = new class extends DecimalCurrency {
 }();
 
 Currency.antimatter = new class extends DecimalCurrency {
-  get value() { return player.matter; }
+  get value() { return player.antimatter; }
   set value(value) {
-    player.matter = Decimal.min(value, Decimal.MAX_VALUE);
+    player.antimatter = Decimal.min(value, Decimal.MAX_VALUE);
   }
 }();
 
