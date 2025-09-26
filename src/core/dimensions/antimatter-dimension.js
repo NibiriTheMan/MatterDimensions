@@ -85,7 +85,6 @@ export function getDimensionFinalMultiplierUncached(tier) {
     multiplier = multiplier.pow(1.05);
   }
   
-  console.log(multiplier,tier);
   return multiplier;
 }
 
@@ -600,6 +599,7 @@ class AntimatterDimensionState extends DimensionState {
       }
     }
     production = production.min(this.cappedProductionInNormalChallenges);
+    console.log(production);
     return production;
   }
 }
