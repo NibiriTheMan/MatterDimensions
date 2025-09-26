@@ -599,7 +599,7 @@ class AntimatterDimensionState extends DimensionState {
       }
     }
     production = production.min(this.cappedProductionInNormalChallenges);
-    console.log(production);
+    console.log(production,this.tier);
     return production;
   }
 }
