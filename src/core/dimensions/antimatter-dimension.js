@@ -357,7 +357,7 @@ class AntimatterDimensionState extends DimensionState {
    * @returns {Decimal}
    */
   get cost() {
-    return this.costScale.calculateCost(this.bought + this.costBumps);
+    return this.costScale.calculateCost(this.bought);
   }
 
   /** @returns {number} */
@@ -388,7 +388,7 @@ class AntimatterDimensionState extends DimensionState {
 
   get howManyCanBuy() {
     const ratio = this.currencyAmount.dividedBy(this.cost);
-    return Decimal.floor(Decimal.max(Decimal.min(ratio, 10 - this.boughtBefore10), 0)).toNumber();
+    return Decimal.floor(Decimal.max(ratio, 0)).toNumber();
   }
 
   /**
