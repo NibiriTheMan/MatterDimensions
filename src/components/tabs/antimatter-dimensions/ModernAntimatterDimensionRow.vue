@@ -84,8 +84,6 @@ export default {
       this.multiplier.copyFrom(AntimatterDimension(tier).multiplier);
       this.amount.copyFrom(dimension.totalAmount);
       this.bought = dimension.bought;
-      this.boughtBefore10 = dimension.boughtBefore10;
-      this.howManyCanBuy = buyUntil10 ? dimension.howManyCanBuy : Math.min(dimension.howManyCanBuy, 1);
       this.singleCost.copyFrom(dimension.cost);
       this.until10Cost.copyFrom(dimension.cost.times(Math.max(dimension.howManyCanBuy, 1)));
       if (tier < 8) {
@@ -103,12 +101,7 @@ export default {
         (tier === 2 && Tutorial.isActive(TUTORIAL_STATE.DIM2));
     },
     buy() {
-      if (this.isContinuumActive) return;
-      if (this.howManyCanBuy === 1) {
-        buyOneDimension(this.tier);
-      } else {
-        buyAsManyAsYouCanBuy(this.tier);
-      }
+      buyAsManyAsYouCanBuy(this.tier);
     },
     showCostTitle(value) {
       return value.exponent < 1000000;
@@ -173,7 +166,7 @@ export default {
           />
           <div
             class="fill-possible"
-            :style="{ 'width': howManyCanBuy*10 + '%' }"
+            :style="{ 'width': howManyCanBuy >= 1 ? 100 : 0 + '%' }"
           />
         </div>
       </button>

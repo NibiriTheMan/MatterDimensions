@@ -99,7 +99,6 @@ function applyNDMultipliers(mult, tier) {
   }
 
   multiplier = multiplier.times(100**-(tier-1));
-  multiplier = multiplier.times(Decimal.pow(AntimatterDimensions.buyTenMultiplier, buy10Value));
   multiplier = multiplier.times(DimBoost.multiplierToNDTier(tier));
 
   let infinitiedMult = DC.D1.timesEffectsOf(
@@ -358,7 +357,7 @@ class AntimatterDimensionState extends DimensionState {
    * @returns {Decimal}
    */
   get cost() {
-    return this.costScale.calculateCost(Math.floor(this.bought / 10) + this.costBumps);
+    return this.costScale.calculateCost(this.bought + this.costBumps);
   }
 
   /** @returns {number} */
@@ -625,25 +624,6 @@ export const AntimatterDimensions = {
     for (const dimension of AntimatterDimensions.all.slice(0, maxTier)) {
       dimension.resetAmount();
     }
-  },
-
-  get buyTenMultiplier() {
-    if (NormalChallenge(7).isRunning) return DC.D2.min(1 + DimBoost.totalBoosts / 5);
-
-    let mult = DC.D2.plusEffectsOf(
-      Achievement(141).effects.buyTenMult,
-      EternityChallenge(3).reward
-    );
-
-    mult = mult.timesEffectsOf(
-      InfinityUpgrade.buy10Mult,
-      Achievement(58)
-    ).times(getAdjustedGlyphEffect("powerbuy10"));
-
-    mult = mult.pow(getAdjustedGlyphEffect("effarigforgotten")).powEffectOf(InfinityUpgrade.buy10Mult.chargedEffect);
-    mult = mult.pow(ImaginaryUpgrade(14).effectOrDefault(1));
-
-    return mult;
   },
 
   tick(diff) {

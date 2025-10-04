@@ -9,7 +9,7 @@ import { GlyphTypes } from "./glyph-effects";
 // This is actually reassigned when importing saves
 // eslint-disable-next-line prefer-const
 window.player = {
-  matter: DC.E1,
+  matter: DC.D1,
   antimatter: DC.D1,
   dimensions: {
     antimatter: Array.range(0, 8).map(() => ({

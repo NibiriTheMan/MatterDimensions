@@ -11,6 +11,7 @@ export default {
       mult: new Decimal(0),
       tickspeed: new Decimal(0),
       divider: new Decimal(0),
+      decimalPower: new Decimal(0),
       galaxyCount: 0,
       purchasedTickspeed: 0,
       freeTickspeed: 0,
@@ -25,6 +26,9 @@ export default {
         ${formatX(1.05 + this.galaxyCount * 0.005, 3, 3)} to all ADs`;
       return `ADs produce ${formatX(this.mult.reciprocal(), 2, 3)} faster per Tickspeed upgrade`;
     },
+    badPower() {
+      return `All production above 1 is ^${formatX(this.decimalPower,2,1)}`;
+    },
     matterDivide() {
       return `All production is divided by ${format(this.divider,2,1)} (based on current matter)`;
     }
@@ -34,6 +38,7 @@ export default {
       this.mult.copyFrom(Tickspeed.multiplier);
       this.tickspeed.copyFrom(Tickspeed.perSecond);
       this.divider.copyFrom(player.matter.add(1).pow(0.5));
+      this.decimalPower.copyFrom(new Decimal(0.2))
       this.galaxyCount = player.galaxies;
       this.purchasedTickspeed = player.totalTickBought;
       this.freeTickspeed = FreeTickspeed.amount;
@@ -44,6 +49,8 @@ export default {
 
 <template>
   <div>
+    {{ badPower }}
+    <br>
     {{ matterDivide }}
     <br>
     {{ perUpgrade }}

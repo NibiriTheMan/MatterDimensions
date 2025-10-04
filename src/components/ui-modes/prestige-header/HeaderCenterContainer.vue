@@ -63,7 +63,7 @@ export default {
     </div>
     <div v-else>
       <br>
-      You are getting {{ format(matterPerSec, 2) }} matter per second.
+      You are getting {{ format(matterPerSec, 2, 1) }} matter per second.
       <br>
       There is {{ format(antimatter, 2, 1) }} antimatter.
       <br></br>
