@@ -234,7 +234,7 @@ Currency.matter = new class extends DecimalCurrency {
   get startingValue() {
     if (Pelle.isDisabled()) return new Decimal(100);
     return Effects.max(
-      10,
+      1,
       Perk.startAM,
       Achievement(21),
       Achievement(37),
