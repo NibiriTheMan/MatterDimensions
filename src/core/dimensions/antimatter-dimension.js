@@ -226,8 +226,6 @@ export function buyManyDimension(tier) {
   if (Laitela.continuumActive || !dimension.isAvailableForPurchase || !dimension.isAffordableUntil10) return false;
   const cost = dimension.costUntil10;
 
-  if (tier === 8 && Enslaved.isRunning) return buyOneDimension(8);
-
   dimension.currencyAmount = dimension.currencyAmount.minus(cost);
   dimension.challengeCostBump();
   dimension.amount = dimension.amount.plus(dimension.remainingUntil10);
@@ -240,11 +238,9 @@ export function buyManyDimension(tier) {
 
 export function buyAsManyAsYouCanBuy(tier) {
   const dimension = AntimatterDimension(tier);
-  if (Laitela.continuumActive || !dimension.isAvailableForPurchase || !dimension.isAffordable) return false;
+  if (!dimension.isAvailableForPurchase || !dimension.isAffordable) return false;
   const howMany = dimension.howManyCanBuy;
   const cost = dimension.cost.times(howMany);
-
-  if (tier === 8 && Enslaved.isRunning) return buyOneDimension(8);
 
   dimension.currencyAmount = dimension.currencyAmount.minus(cost);
   dimension.challengeCostBump();
@@ -257,13 +253,20 @@ export function buyAsManyAsYouCanBuy(tier) {
 }
 
 // This function doesn't do cost checking as challenges generally modify costs, it just buys and updates dimensions
-function buyUntilTen(tier) {
-  if (Laitela.continuumActive) return;
+function buyMax(tier) {
   const dimension = AntimatterDimension(tier);
+  if (!dimension.isAvailableForPurchase || !dimension.isAffordable) return false;
+  const howMany = dimension.howManyCanBuy;
+  const cost = dimension.cost.times(howMany);
+
+  dimension.currencyAmount = dimension.currencyAmount.minus(cost);
   dimension.challengeCostBump();
-  dimension.amount = Decimal.round(dimension.amount.plus(dimension.remainingUntil10));
-  dimension.bought += dimension.remainingUntil10;
+  dimension.amount = dimension.amount.plus(howMany);
+  dimension.bought += howMany;
+
   onBuyDimension(tier);
+
+  return true;
 }
 
 export function maxAll() {
@@ -282,16 +285,11 @@ export function maxAll() {
 
 export function buyMaxDimension(tier, bulk = Infinity) {
   const dimension = AntimatterDimension(tier);
-  if (Laitela.continuumActive || !dimension.isAvailableForPurchase || !dimension.isAffordableUntil10) return;
+  if (!dimension.isAvailableForPurchase || !dimension.isAffordableUntil10) return;
   const cost = dimension.costUntil10;
   let bulkLeft = bulk;
   const goal = Player.infinityGoal;
   if (dimension.cost.gt(goal) && Player.isInAntimatterChallenge) return;
-
-  if (tier === 8 && Enslaved.isRunning) {
-    buyOneDimension(8);
-    return;
-  }
 
   // Buy any remaining until 10 before attempting to bulk-buy
   if (dimension.currencyAmount.gte(cost)) {
@@ -316,15 +314,15 @@ export function buyMaxDimension(tier, bulk = Infinity) {
 
   // This is the bulk-buy math, explicitly ignored if abnormal cost increases are active
   const maxBought = dimension.costScale.getMaxBought(
-    Math.floor(dimension.bought / 10) + dimension.costBumps, dimension.currencyAmount, 10
+    dimension.bought + dimension.costBumps, dimension.currencyAmount, 10
   );
   if (maxBought === null) {
     return;
   }
   let buying = maxBought.quantity;
   if (buying > bulkLeft) buying = bulkLeft;
-  dimension.amount = dimension.amount.plus(10 * buying).round();
-  dimension.bought += 10 * buying;
+  dimension.amount = buying.round();
+  dimension.bought += buying;
   dimension.currencyAmount = dimension.currencyAmount.minus(Decimal.pow10(maxBought.logPrice));
 }
 
@@ -364,27 +362,6 @@ class AntimatterDimensionState extends DimensionState {
   get costBumps() { return this.data.costBumps; }
   /** @param {number} value */
   set costBumps(value) { this.data.costBumps = value; }
-
-  /**
-   * @returns {number}
-   */
-  get boughtBefore10() {
-    return this.bought % 10;
-  }
-
-  /**
-   * @returns {number}
-   */
-  get remainingUntil10() {
-    return 10 - this.boughtBefore10;
-  }
-
-  /**
-   * @returns {Decimal}
-   */
-  get costUntil10() {
-    return this.cost.times(this.remainingUntil10);
-  }
 
   get howManyCanBuy() {
     const ratio = this.currencyAmount.dividedBy(this.cost);
