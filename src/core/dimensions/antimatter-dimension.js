@@ -388,7 +388,7 @@ class AntimatterDimensionState extends DimensionState {
 
   get howManyCanBuy() {
     const ratio = this.currencyAmount.dividedBy(this.cost);
-    return Decimal.floor(Decimal.max(ratio, 0)).toNumber();
+    return Decimal.floor(ratio).toNumber();
   }
 
   /**
